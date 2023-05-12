@@ -1,4 +1,4 @@
-// verifica o autor da requisição
+// Verifica o autor da requisição
 
 const { expressjwt } = require("express-jwt");
 
