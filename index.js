@@ -1,4 +1,3 @@
-//importa o framework
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
@@ -31,7 +30,7 @@ app.get("/home", (req, res) => {
   return res.status(200).json("Home!");
 });
 
-// função para fazer o servidor rodar na porta 4000
+// função para fazer o servidor rodar na porta 4000. Essa função tem sempre de estar no fim do arquivo
 app.listen(process.env.PORT, () => {
   console.log("Server up and running on port 4000");
 });
