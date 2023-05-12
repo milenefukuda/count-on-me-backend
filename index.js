@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
 import connectToDB from "./config/db.config.js";
 import userRouter from "./routes/user.routes.js";
+import cors from "cors";
 
 // instancia o express
 const app = express();
@@ -12,6 +13,9 @@ app.use(express.json());
 
 // aqui estamos dizendo para o app usar a rota /user e direcionar o request para o arquivo user.routes.js
 app.use("/user", userRouter);
+
+// aqui configuramos o backend para aceitar requisições do reactApp
+app.use(cors());
 
 // para criar um ID o comando é:
 uuidv4();
