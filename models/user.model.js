@@ -16,7 +16,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    // só vai aceitar as strings contidas no array
+    // enum só vai aceitar as strings contidas no array
     enum: ["user", "admin"],
     default: "user",
   },

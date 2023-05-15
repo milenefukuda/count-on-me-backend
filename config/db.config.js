@@ -11,3 +11,6 @@ async function connectToDB() {
 }
 
 export default connectToDB;
+
+// esse arquivo contém a função responsável por conectar o banco de dados
+// com o servidor toda vez que ele estiver online
