@@ -15,4 +15,5 @@ const messageSchema = new Schema({
   countMeIn: {
     type: Boolean,
   },
+  creator: { type: Schema.Types.ObjectId, ref: "User" },
 });

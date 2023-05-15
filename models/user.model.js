@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
-  userName: {
+  name: {
     type: String,
     required: true,
     minlength: 2,
@@ -20,6 +20,8 @@ const userSchema = new Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  message: { type: Schema.Types.ObjectId, ref: "Message" },
+  event: { type: Schema.Types.ObjectId, ref: "Event" },
 });
 
 // timestamps é um objeto de configuração que cria 2 chaves dentro do seu objeto
