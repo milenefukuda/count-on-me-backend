@@ -7,10 +7,13 @@ import jwt from "jsonwebtoken";
 const generateToken = (user) => {
   // seleciona os campos que serão encriptados no token
   const { _id, name, email, role } = user;
+
   // a signature é a chave secreta que vai decodificar o token
   const signature = process.env.TOKEN_SIGN_SECRET;
+
   // determina o tempo de validade do token
   const expiration = "24h";
+
   // a função retorna a função sign da biblioteca jwt e recebe 3 parâmetros
   // 1- um objeto com todas as infos que queremos guardar no token
   // 2- a signature com a chave secreta do token

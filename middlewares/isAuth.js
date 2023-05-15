@@ -1,6 +1,8 @@
 // Verifica o autor da requisição
+import { expressjwt } from "express-jwt";
+import * as dotenv from "dotenv";
 
-const { expressjwt } = require("express-jwt");
+dotenv.config();
 
 export default expressjwt({
   secret: process.env.TOKEN_SIGN_SECRET,

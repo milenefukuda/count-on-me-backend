@@ -2,6 +2,8 @@ import express from "express";
 import bcrypt from "bcrypt";
 import { UserModel } from "../models/user.model.js";
 import generateToken from "../config/jwt.config.js";
+import attachCurrentUser from "../middlewares/attachCurrentUser.js";
+import isAuth from "../middlewares/isAuth.js";
 
 const userRouter = express.Router();
 
@@ -69,8 +71,10 @@ userRouter.post("/login", async (req, res) => {
     if (await bcrypt.compare(password, user.passwordHash)) {
       // caso positivo, apagar o passwordHash do user para não devolver essa informação
       delete user._doc.passwordHash;
+
       // gerar token com as informações do usuário
       const token = generateToken(user);
+
       // retorna um objeto com as informações do user e o token
       return res.status(200).json({
         user: { ...user._doc },
@@ -83,6 +87,22 @@ userRouter.post("/login", async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);
+  }
+});
+
+userRouter.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+    const loggedInUser = req.currentUser;
+    if (!loggedInUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const user = await UserModel.findById(loggedInUser._id);
+    delete user._doc.passwordHash;
+    delete user.doc__v;
+    return res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Error message" });
   }
 });
 
