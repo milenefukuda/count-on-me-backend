@@ -22,3 +22,5 @@ eventRouter.get("/event/:id", async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+export default eventRouter;
