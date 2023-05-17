@@ -4,6 +4,7 @@ import { UserModel } from "../models/user.model.js";
 import generateToken from "../config/jwt.config.js";
 import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAuth from "../middlewares/isAuth.js";
+import { EventModel } from "../models/event.model.js";
 
 const userRouter = express.Router();
 
@@ -90,6 +91,7 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
+// Acessar somente infos do user logado
 userRouter.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const loggedInUser = req.currentUser;
@@ -103,6 +105,38 @@ userRouter.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Error message" });
+  }
+});
+
+// Editar somente infos do user logado
+userRouter.put("/edit", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      req.currentUser._id,
+      { ...req.body },
+      { runValidators: true, new: true }
+    );
+    delete updatedUser._doc.passwordHash;
+    return res.status(200).json(updatedUser);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
+// Apagar somente o proprio user logado
+userRouter.delete("/delete", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+    let deletedUser = await UserModel.findById(req.currentUser._id);
+    if (deletedUser._doc.type === "admin") {
+      await EventModel.deleteMany({ creator: req.currentUser._id });
+    }
+    deletedUser = await UserModel.findByIdAndDelete(req.currentUser._id);
+    delete deletedUser._doc.passwordHash;
+    return res.status(200).json("User deleted");
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
   }
 });
 
