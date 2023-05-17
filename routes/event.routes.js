@@ -73,4 +73,18 @@ eventRouter.delete(
   }
 );
 
+// Get all events
+eventRouter.get("/get/all", async (req, res) => {
+  try {
+    const allEvents = await EventModel.find({}).populate({
+      path: "user",
+      select: "-passwordHash -events",
+    });
+    return res.status(200).json(allEvents);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
 export default eventRouter;
