@@ -5,7 +5,7 @@ import { UserModel } from "../models/user.model.js";
 
 const messageRouter = express.Router();
 
-// Rota de comentário
+// Deixar um comentário - user não logado
 messageRouter.post("/thankYou", async (req, res) => {
   try {
     const newMessage = await MessageModel.create({ ...req.body });
@@ -16,7 +16,7 @@ messageRouter.post("/thankYou", async (req, res) => {
   }
 });
 
-// Rota de comentário para usar logado
+// Deixar um comentário - user logado
 messageRouter.post(
   "/thankYouLogado",
   isAuth,
@@ -39,6 +39,7 @@ messageRouter.post(
   }
 );
 
+// Ver todas as mensagens
 messageRouter.get("/thankYouWall", async (req, res) => {
   try {
     const allMessages = await MessageModel.find({});

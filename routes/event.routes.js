@@ -6,6 +6,7 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 
 const eventRouter = express.Router();
 
+// Ver todos os eventos
 eventRouter.get("/all-events", async (req, res) => {
   try {
     const events = await EventModel.find();
@@ -16,6 +17,7 @@ eventRouter.get("/all-events", async (req, res) => {
   }
 });
 
+// Ver os eventos por Id
 eventRouter.get("/event/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,6 +44,34 @@ eventRouter.post("/create", isAuth, attachCurrentUser, async (req, res) => {
     return res.status(500).json(err);
   }
 });
+
+// Editar um evento
+eventRouter.put(
+  "/edit/:eventId",
+  isAuth,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const { eventId } = req.params;
+      const selEvent = await EventModel.findById(eventId);
+      if (
+        JSON.stringify(req.currentUser._id) !=
+        JSON.stringify(selEvent._doc.creator)
+      ) {
+        return res.status(401).json("Unauthorized");
+      }
+      const updatedEvent = await EventModel.findByIdAndUpdate(
+        eventId,
+        { ...req.body },
+        { runValidators: true, new: true }
+      );
+      return res.status(200).json(updatedEvent);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  }
+);
 
 // Apagar um evento
 eventRouter.delete(
@@ -72,19 +102,5 @@ eventRouter.delete(
     }
   }
 );
-
-// Get all events
-eventRouter.get("/get/all", async (req, res) => {
-  try {
-    const allEvents = await EventModel.find({}).populate({
-      path: "user",
-      select: "-passwordHash -events",
-    });
-    return res.status(200).json(allEvents);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json(err);
-  }
-});
 
 export default eventRouter;

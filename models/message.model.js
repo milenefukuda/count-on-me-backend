@@ -12,7 +12,7 @@ const messageSchema = new Schema({
   picture: {
     type: String,
   },
-  countMeIn: {
+  countOnMe: {
     type: Boolean,
   },
   creator: { type: Schema.Types.ObjectId, ref: "User" },
