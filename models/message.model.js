@@ -17,3 +17,5 @@ const messageSchema = new Schema({
   },
   creator: { type: Schema.Types.ObjectId, ref: "User" },
 });
+
+// aqui talvez precise adiconar ao Schema "evento" type: string
