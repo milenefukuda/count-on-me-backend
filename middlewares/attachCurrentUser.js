@@ -1,6 +1,6 @@
 import { UserModel } from "../models/user.model.js";
 
-async function attachCurrentUser(req, res) {
+export default async function attachCurrentUser(req, res, next) {
   try {
     // pegar as infos disponibilizadas no middleware isAuth
     const loggedInUser = req.auth;
@@ -13,7 +13,7 @@ async function attachCurrentUser(req, res) {
 
     // checa se o usuário foi encontrado
     if (!user) {
-      return res.status(400).json({ message: "This user does not exist." });
+      return res.status(400).json({ message: "User not found." });
     }
 
     // cria o campo currentUser e o adiciona no banco de dados
@@ -26,5 +26,3 @@ async function attachCurrentUser(req, res) {
     return res.status(500).json(error);
   }
 }
-
-export default attachCurrentUser;

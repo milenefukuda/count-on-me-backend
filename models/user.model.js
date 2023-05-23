@@ -10,15 +10,13 @@ const userSchema = new Schema({
   email: {
     trype: String,
   },
-  passwordHash: {
+  repeatPassword: {
     type: String,
     required: true,
   },
-  role: {
+  passwordHash: {
     type: String,
-    // enum só vai aceitar as strings contidas no array
-    enum: ["user", "admin"],
-    default: "user",
+    required: true,
   },
   message: { type: Schema.Types.ObjectId, ref: "Message" },
   event: { type: Schema.Types.ObjectId, ref: "Event" },

@@ -103,4 +103,4 @@ eventRouter.delete(
   }
 );
 
-export default eventRouter;
+export { eventRouter };

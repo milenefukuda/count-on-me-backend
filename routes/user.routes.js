@@ -140,4 +140,4 @@ userRouter.delete("/delete", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
-export default userRouter;
+export { userRouter };

@@ -1,10 +1,10 @@
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
-import connectToDB from "./config/db.config.js";
-import userRouter from "./routes/user.routes.js";
+import { connectToDB } from "./config/db.config.js";
+import { userRouter } from "./routes/user.routes.js";
 import cors from "cors";
-import eventRouter from "./routes/event.routes.js";
+import { eventRouter } from "./routes/event.routes.js";
 
 // configura o servidor para acessar as variáveis do arquivo .env
 dotenv.config();
