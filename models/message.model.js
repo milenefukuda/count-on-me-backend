@@ -6,7 +6,7 @@ const messageSchema = new Schema({
     required: true,
   },
   userMessage: {
-    trype: String,
+    type: String,
     required: true,
   },
   picture: {
