@@ -37,12 +37,12 @@ userRouter.post("/sign-up", async (req, res) => {
     const salt = await bcrypt.genSalt(saltRounds);
 
     // chama a função hash da biblioteca e passa a senha com o salto criado
-    const hashedPassowrd = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // cria a entrada do user no banco de dados e adiciona a senha hasheada
     const user = await UserModel.create({
       ...req.body,
-      passwordHash: hashedPassowrd,
+      passwordHash: hashedPassword,
     });
 
     // deleta o campo da senha antes de devolver a response ao usuer
