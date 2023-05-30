@@ -2,6 +2,7 @@ import express from "express";
 import { MessageModel } from "../models/message.model.js";
 import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import { UserModel } from "../models/user.model.js";
+import isAuth from "../middlewares/isAuth.js";
 
 const messageRouter = express.Router();
 
