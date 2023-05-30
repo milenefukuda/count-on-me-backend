@@ -19,3 +19,5 @@ const messageSchema = new Schema({
 });
 
 // aqui talvez precise adiconar ao Schema "evento" type: string
+
+export const MessageModel = model("Message", messageSchema);
