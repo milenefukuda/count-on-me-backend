@@ -1,4 +1,4 @@
-import cloudinary from "claudinary";
+import cloudinary from "cloudinary";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import * as dotenv from "dotenv";

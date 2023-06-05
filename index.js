@@ -6,6 +6,7 @@ import { userRouter } from "./routes/user.routes.js";
 import cors from "cors";
 import { eventRouter } from "./routes/event.routes.js";
 import { messageRouter } from "./routes/message.routes.js";
+import { uploadImgRouter } from "./routes/uploadImage.routes.js";
 
 // configura o servidor para acessar as variáveis do arquivo .env
 dotenv.config();
@@ -22,10 +23,11 @@ app.use(cors());
 // configura o servidor para aceitar JSON
 app.use(express.json());
 
-// aqui estamos dizendo para o app usar a rota /user e direcionar o request para o arquivo user.routes.js
+// aqui estamos dizendo para o app usar a rota "/x" e direcionar o request para o arquivo user.routes.js
 app.use("/user", userRouter);
 app.use("/event", eventRouter);
 app.use("/message", messageRouter);
+app.use("/uploadImg", uploadImgRouter);
 
 // para criar um ID o comando é:
 uuidv4();
