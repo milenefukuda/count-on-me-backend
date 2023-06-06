@@ -9,11 +9,11 @@ const eventSchema = new Schema({
   },
   date: {
     type: Date,
-    required: true,
+    //    required: true,
   },
   local: {
     type: String,
-    required: true,
+    //    required: true,
   },
   categories: {
     type: String,
@@ -31,11 +31,11 @@ const eventSchema = new Schema({
   },
   picture: {
     type: String,
-    required: true,
+    //    required: true,
   },
   description: {
     type: String,
-    required: true,
+    //    required: true,
   },
   creator: {
     type: Schema.Types.ObjectId,
