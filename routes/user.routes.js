@@ -11,12 +11,8 @@ const userRouter = express.Router();
 // define a quantidade de saltos na criptografia da senha
 const saltRounds = 11;
 
-userRouter.get("/welcome", (req, res) => {
-  return res.status(200).json("Welcome!!!");
-});
-
 // Criar um novo usuário
-userRouter.post("/sign-up", async (req, res) => {
+userRouter.post("/signup", async (req, res) => {
   try {
     // captura o password no corpo da requisição
     const { password } = req.body;

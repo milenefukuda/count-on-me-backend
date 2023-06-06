@@ -3,16 +3,13 @@ import { Schema, model } from "mongoose";
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    minlength: 2,
-    maxlenght: 20,
   },
   email: {
-    trype: String,
-  },
-  repeatPassword: {
     type: String,
-    required: true,
+    match: /^[\w\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+  },
+  password: {
+    type: String,
   },
   passwordHash: {
     type: String,
