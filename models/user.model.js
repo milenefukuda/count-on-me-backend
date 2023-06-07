@@ -11,6 +11,9 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
+  repeatPassword: {
+    type: String,
+  },
   passwordHash: {
     type: String,
     required: true,
