@@ -11,6 +11,10 @@ const eventSchema = new Schema({
     type: Date,
     //    required: true,
   },
+  time: {
+    type: String,
+    //    required: true,
+  },
   local: {
     type: String,
     //    required: true,
@@ -34,6 +38,10 @@ const eventSchema = new Schema({
     //    required: true,
   },
   description: {
+    type: String,
+    //    required: true,
+  },
+  associatedLinks: {
     type: String,
     //    required: true,
   },
