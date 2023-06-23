@@ -18,7 +18,7 @@ eventRouter.get("/all-events", async (req, res) => {
 });
 
 // Ver os eventos por Id
-eventRouter.get("/:id", async (req, res) => {
+eventRouter.get("/view", async (req, res) => {
   try {
     const { id } = req.params;
     const oneEvent = await EventModel.findById(id);
