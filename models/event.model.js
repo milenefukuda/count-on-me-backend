@@ -31,7 +31,7 @@ const eventSchema = new Schema({
       "Igualdade racial",
     ],
     default: "Choose one",
-    required: true,
+    //   required: true,
   },
   picture: {
     type: String,
