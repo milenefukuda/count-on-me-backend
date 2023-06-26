@@ -18,7 +18,7 @@ eventRouter.get("/all-events", async (req, res) => {
 });
 
 // Ver os eventos por Id
-eventRouter.get("/view", async (req, res) => {
+eventRouter.get("/view/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const oneEvent = await EventModel.findById(id);
@@ -32,6 +32,7 @@ eventRouter.get("/view", async (req, res) => {
 // Criar novo evento
 eventRouter.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {
+    console.log(req);
     const newEvent = await EventModel.create({
         ...req.body,
         creator: req.currentUser._id,
