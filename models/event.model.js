@@ -45,6 +45,10 @@ const eventSchema = new Schema({
     type: String,
     //    required: true,
   },
+  supporters: {
+    type: Number,
+    default: 0,
+  },
   creator: {
     type: Schema.Types.ObjectId,
     required: true,

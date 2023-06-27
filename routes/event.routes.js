@@ -48,9 +48,20 @@ eventRouter.post("/create", isAuth, attachCurrentUser, async (req, res) => {
 });
 
 // Apoiar um evento
-eventRouter.post("/support/:id", (req, res) => {
-  const eventId = req.params.id;
-  res.status(200).json;
+eventRouter.post("/support/:id", async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const event = await EventModel.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+    event.supporters += 1;
+    await event.save();
+    return res.status(200).json(event);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
 });
 
 // Editar um evento
