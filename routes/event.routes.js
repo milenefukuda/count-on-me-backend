@@ -29,6 +29,17 @@ eventRouter.get("/view/:id", async (req, res) => {
   }
 });
 
+// Ver todos os eventos criado por userLogado
+eventRouter.get("/my-events", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+    const events = await EventModel.find();
+    return res.status(200).json(events);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 // Criar novo evento
 eventRouter.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {

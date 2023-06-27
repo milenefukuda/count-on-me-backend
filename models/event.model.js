@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+const colorRegex = /^#[0-9A-Fa-f]{6}$/;
 
 const eventSchema = new Schema({
   eventName: {
@@ -8,7 +9,7 @@ const eventSchema = new Schema({
     minlength: 3,
   },
   date: {
-    type: Date,
+    type: String,
     //    required: true,
   },
   time: {
@@ -49,6 +50,27 @@ const eventSchema = new Schema({
     type: Number,
     default: 0,
   },
+  primaryColor: {
+    type: String,
+    default: "#FFFFFF",
+    validate: {
+      validator: function (color) {
+        return colorRegex.test(color);
+      },
+      message: "Invalid primary color",
+    },
+  },
+  secondaryColor: {
+    type: String,
+    default: "#000000",
+    validate: {
+      validator: function (color) {
+        return colorRegex.test(color);
+      },
+      message: "Invalid secondary color",
+    },
+  },
+
   creator: {
     type: Schema.Types.ObjectId,
     required: true,
