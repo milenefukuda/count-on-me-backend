@@ -47,6 +47,12 @@ eventRouter.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
+// Apoiar um evento
+eventRouter.post("/support/:id", (req, res) => {
+  const eventId = req.params.id;
+  res.status(200).json;
+});
+
 // Editar um evento
 eventRouter.put(
   "/edit/:eventId",
