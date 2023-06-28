@@ -20,6 +20,7 @@ const userSchema = new Schema({
   },
   message: { type: Schema.Types.ObjectId, ref: "Message" },
   event: { type: Schema.Types.ObjectId, ref: "Event" },
+  supportedEvents: [{ type: Schema.Types.ObjectId, ref: "Event" }],
 });
 
 // timestamps é um objeto de configuração que cria 2 chaves dentro do seu objeto
