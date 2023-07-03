@@ -36,7 +36,8 @@ eventRouter.get(
   attachCurrentUser,
   async (req, res) => {
     try {
-      const events = await EventModel.find();
+      const userId = req.currentUser.id;
+      const events = await EventModel.find({ creator: userId });
       return res.status(200).json(events);
     } catch (err) {
       console.log(err);
