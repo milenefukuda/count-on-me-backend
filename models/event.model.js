@@ -9,11 +9,11 @@ const eventSchema = new Schema({
     minlength: 3,
   },
   date: {
-    type: String,
+    type: Date,
     //    required: true,
   },
   time: {
-    type: String,
+    type: Date,
     //    required: true,
   },
   local: {
