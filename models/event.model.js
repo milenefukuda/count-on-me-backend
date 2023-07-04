@@ -10,15 +10,23 @@ const eventSchema = new Schema({
   },
   date: {
     type: Date,
-    //    required: true,
+    set: function (dateTime) {
+      if (dateTime instanceof Date) {
+        const eventTime = this.get("time");
+        const timeParts = eventTime.split(":");
+        const hours = parseInt(timeParts[0]);
+        const minutes = parseInt(timeParts[1]);
+        dateTime.setUTCHours(hours);
+        dateTime.setUTCMinutes(minutes);
+      }
+      return dateTime;
+    },
   },
   time: {
     type: String,
-    //    required: true,
   },
   local: {
     type: String,
-    //    required: true,
   },
   categories: {
     type: String,
@@ -28,23 +36,19 @@ const eventSchema = new Schema({
       "Direitos Humanos",
       "Saúde",
       "Educação",
-      "Igualdade de genêro",
+      "Igualdade de gênero",
       "Igualdade racial",
     ],
     default: "Choose one",
-    //   required: true,
   },
   picture: {
     type: String,
-    //    required: true,
   },
   description: {
     type: String,
-    //    required: true,
   },
   associatedLinks: {
     type: String,
-    //    required: true,
   },
   supporters: {
     type: Number,
@@ -70,12 +74,26 @@ const eventSchema = new Schema({
       message: "Invalid secondary color",
     },
   },
-
   creator: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: "User",
   },
+});
+
+eventSchema.pre("save", function (next) {
+  const eventDate = this.get("date");
+  const eventTime = this.get("time");
+  if (eventDate && eventTime) {
+    const dateTime = new Date(eventDate);
+    const timeParts = eventTime.split(":");
+    const hours = parseInt(timeParts[0]);
+    const minutes = parseInt(timeParts[1]);
+    dateTime.setUTCHours(hours);
+    dateTime.setUTCMinutes(minutes);
+    this.set("date", dateTime);
+  }
+  next();
 });
 
 export const EventModel = model("Event", eventSchema);
