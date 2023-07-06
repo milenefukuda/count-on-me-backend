@@ -72,7 +72,7 @@ eventRouter.post("/support/:id", async (req, res) => {
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
     }
-    event.supporters += 1;
+    event.supporters++;
     await event.save();
     return res.status(200).json(event);
   } catch (err) {
