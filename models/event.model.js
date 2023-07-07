@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-const colorRegex = /^#[0-9A-Fa-f]{6}$/;
+import { colorRegex } from "../routes/colors.js";
 
 const eventSchema = new Schema({
   eventName: {

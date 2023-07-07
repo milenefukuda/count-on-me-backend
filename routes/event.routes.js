@@ -49,14 +49,19 @@ eventRouter.get(
 // Criar novo evento
 eventRouter.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {
-    console.log(req);
+    const { primaryColor, secondaryColor, ...eventData } = req.body;
+
     const newEvent = await EventModel.create({
-        ...req.body,
-        creator: req.currentUser._id,
-      }),
-      updatedUser = await UserModel.findByIdAndUpdate(req.currentUser._id, {
-        $push: { events: newEvent._doc._id },
-      });
+      ...eventData,
+      primaryColor,
+      secondaryColor,
+      creator: req.currentUser._id,
+    });
+
+    const updatedUser = await UserModel.findByIdAndUpdate(req.currentUser._id, {
+      $push: { events: newEvent._doc._id },
+    });
+
     return res.status(201).json(newEvent);
   } catch (err) {
     console.log(err);
