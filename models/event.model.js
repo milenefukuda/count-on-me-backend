@@ -25,7 +25,13 @@ const eventSchema = new Schema({
   time: {
     type: String,
   },
-  local: {
+  city: {
+    type: String,
+  },
+  startLocation: {
+    type: String,
+  },
+  endLocation: {
     type: String,
   },
   categories: {

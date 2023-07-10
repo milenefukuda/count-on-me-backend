@@ -29,6 +29,18 @@ eventRouter.get("/view/:id", async (req, res) => {
   }
 });
 
+// Ver mapa do evento
+eventRouter.get("/map/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const oneEvent = await EventModel.findById(id);
+    return res.status(200).json(oneEvent);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 // Ver todos os eventos criado por userLogado
 eventRouter.get(
   "/my-events/:eventId",

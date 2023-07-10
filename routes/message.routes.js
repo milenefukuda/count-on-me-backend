@@ -41,7 +41,7 @@ messageRouter.post(
 );
 
 // Ver todas as mensagens
-messageRouter.get("/thankYouWall", async (req, res) => {
+messageRouter.get("/thankYouWall/:id", async (req, res) => {
   try {
     const allMessages = await MessageModel.find({});
     return res.status(200).json(allMessages);
