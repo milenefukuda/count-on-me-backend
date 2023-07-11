@@ -19,6 +19,4 @@ const messageSchema = new Schema({
   event: { type: Schema.Types.ObjectId, ref: "Event" },
 });
 
-// aqui talvez precise adiconar ao Schema "evento" type: string
-
 export const MessageModel = model("Message", messageSchema);
