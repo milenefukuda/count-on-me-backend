@@ -6,6 +6,22 @@ import isAuth from "../middlewares/isAuth.js";
 
 const messageRouter = express.Router();
 
+// Ver todas as mensagens do evento
+messageRouter.get("/thankYouWall/:id", async (req, res) => {
+  try {
+    //este é o id do evento
+    const id = req.params.id;
+    console.log(id);
+
+    const eventMessages = await MessageModel.find({ eventId: id }); // find sempre precisa do obj
+    console.log(eventMessages);
+    return res.status(200).json(eventMessages);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
 // Deixar um comentário - user não logado
 messageRouter.post("/thankYou/:id", async (req, res) => {
   try {
@@ -39,27 +55,5 @@ messageRouter.post(
     }
   }
 );
-
-messageRouter.get("/thankYouWall/:id", async (req, res) => {
-  try {
-    const eventId = req.params.id;
-    const eventMessages = await MessageModel.find({ event: eventId });
-    return res.status(200).json(eventMessages);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json(err);
-  }
-});
-
-// Ver todas as mensagens do evento
-// messageRouter.get("/thankYouWall/:id", async (req, res) => {
-//   try {
-//     const allMessages = await MessageModel.find({});
-//     return res.status(200).json(allMessages);
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).json(err);
-//   }
-// });
 
 export { messageRouter };
