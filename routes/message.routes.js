@@ -40,17 +40,6 @@ messageRouter.post(
   }
 );
 
-// Ver todas as mensagens do evento
-// messageRouter.get("/thankYouWall/:id", async (req, res) => {
-//   try {
-//     const allMessages = await MessageModel.find({});
-//     return res.status(200).json(allMessages);
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).json(err);
-//   }
-// });
-
 messageRouter.get("/thankYouWall/:id", async (req, res) => {
   try {
     const eventId = req.params.id;
@@ -61,5 +50,16 @@ messageRouter.get("/thankYouWall/:id", async (req, res) => {
     return res.status(500).json(err);
   }
 });
+
+// Ver todas as mensagens do evento
+// messageRouter.get("/thankYouWall/:id", async (req, res) => {
+//   try {
+//     const allMessages = await MessageModel.find({});
+//     return res.status(200).json(allMessages);
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).json(err);
+//   }
+// });
 
 export { messageRouter };
