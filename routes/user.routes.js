@@ -8,16 +8,16 @@ import { EventModel } from "../models/event.model.js";
 
 const userRouter = express.Router();
 
-// define a quantidade de saltos na criptografia da senha
+// Define a quantidade de saltos na criptografia da senha
 const saltRounds = 11;
 
-// Criar um novo usuário
+// Cria um novo usuário
 userRouter.post("/signup", async (req, res) => {
   try {
-    // captura o password no corpo da requisição
+    // Captura o password no corpo da requisição
     const { password } = req.body;
     if (
-      // checa se existe o campo no req.body e checa o pré requisito da senha
+      // Checa se existe o campo no req.body e checa o pré requisito da senha
       !password ||
       !password.match(
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/
@@ -29,19 +29,19 @@ userRouter.post("/signup", async (req, res) => {
       });
     }
 
-    // gera o saltos na quantidade previamente definida
+    // Gera o saltos na quantidade previamente definida
     const salt = await bcrypt.genSalt(saltRounds);
 
-    // chama a função hash da biblioteca e passa a senha com o salto criado
+    // Chama a função hash da biblioteca e passa a senha com o salto criado
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // cria a entrada do user no banco de dados e adiciona a senha hasheada
+    // Cria a entrada do user no banco de dados e adiciona a senha hasheada
     const user = await UserModel.create({
       ...req.body,
       passwordHash: hashedPassword,
     });
 
-    // deleta o campo da senha antes de devolver a response ao usuer
+    // Deleta o campo da senha antes de devolver a response ao usuer
 
     delete user._doc.passwordHash;
     return res.status(201).json(user);
@@ -54,31 +54,31 @@ userRouter.post("/signup", async (req, res) => {
 // Fazer login
 userRouter.post("/login", async (req, res) => {
   try {
-    // captura as chaves de email e password enviadas no corpo da requisição
+    // Captura as chaves de email e password enviadas no corpo da requisição
     const { email, password } = req.body;
 
-    // encontra o usuário no banco de dados pelo email
+    // Encontra o usuário no banco de dados pelo email
     const user = await UserModel.findOne({ email: email });
 
-    // checa se o usuário existe
+    // Checa se o usuário existe
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-    // chama o método .compare() da biblioteca bcrypt para comparar se a password e o passwordHash são compatíveis
+    // Chama o método .compare() da biblioteca bcrypt para comparar se a password e o passwordHash são compatíveis
     if (await bcrypt.compare(password, user.passwordHash)) {
-      // caso positivo, apagar o passwordHash do user para não devolver essa informação
+      // Caso positivo, apagar o passwordHash do user para não devolver essa informação
       delete user._doc.passwordHash;
 
-      // gerar token com as informações do usuário
+      // Gerar token com as informações do usuário
       const token = generateToken(user);
 
-      // retorna um objeto com as informações do user e o token
+      // Retorna um objeto com as informações do user e o token
       return res.status(200).json({
         user: { ...user._doc },
         token: token,
       });
     } else {
-      // se a comparação entre password e passwordHash não foram compatíveis
+      // Se a comparação entre password e passwordHash não foram compatíveis
       return res.status(201).json({ message: "Invalid email or password" });
     }
   } catch (error) {

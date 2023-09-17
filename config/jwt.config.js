@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
-// Aqui criamos o token para autenticação do usuário logado. Essa função será chamada no momento do login do usuário
+// Aqui criamos o token para autenticação do usuário logado
+// Essa função é chamada no momento do login do usuário
 
 export default function generateToken(user) {
   const { _id, email } = user;

@@ -1,6 +1,7 @@
-// Verifica o autor da requisição
 import { expressjwt } from "express-jwt";
 import * as dotenv from "dotenv";
+
+// Verifica o autor da requisição
 
 dotenv.config();
 

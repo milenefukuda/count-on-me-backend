@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// Conecta o banco de dados com o servidor toda vez que ele estiver online
+
 export async function connectToDB() {
   try {
     mongoose.set("strictQuery", false);
@@ -9,5 +11,3 @@ export async function connectToDB() {
     console.log(error);
   }
 }
-
-// esse arquivo contém a função responsável por conectar o banco de dados com o servidor toda vez que ele estiver online

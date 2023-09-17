@@ -1,6 +1,8 @@
 import { Schema, model } from "mongoose";
 import { colorRegex } from "../routes/colors.js";
 
+// Event Schema
+
 const eventSchema = new Schema({
   eventName: {
     type: String,

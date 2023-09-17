@@ -3,6 +3,8 @@ import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import * as dotenv from "dotenv";
 
+// Faz a conexão com o banco de imagens
+
 dotenv.config();
 
 const cloudinaryInst = cloudinary.v2;
