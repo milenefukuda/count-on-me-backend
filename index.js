@@ -7,6 +7,8 @@ import cors from "cors";
 import { eventRouter } from "./routes/event.routes.js";
 import { messageRouter } from "./routes/message.routes.js";
 import { uploadImgRouter } from "./routes/uploadImage.routes.js";
+import req from "express/lib/request.js";
+import res from "express/lib/response.js";
 
 // Configura o servidor para acessar as variáveis do arquivo .env
 dotenv.config();
@@ -36,3 +38,9 @@ uuidv4();
 app.listen(process.env.PORT, () => {
   console.log("Server up and running on port 4000");
 });
+
+app.get("/", (req, res) => {
+  res.send("Express on Vercel");
+});
+
+module.exports = app;
