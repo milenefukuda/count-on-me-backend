@@ -33,6 +33,8 @@ app.use("/uploadImg", uploadImgRouter);
 uuidv4();
 
 // Função para fazer o servidor rodar na porta 4000. Essa função tem sempre de estar no fim do arquivo
-app.listen(process.env.PORT, () => {
+app.listen(4000, () => {
   console.log("Server up and running on port 4000");
 });
+
+module.exports = app;
