@@ -23,6 +23,8 @@ app.use(cors());
 // Configura o servidor para aceitar JSON
 app.use(express.json());
 
+const isVercel = process.env.DEPLOYMENT_ENV === "vercel";
+
 // Aqui estamos dizendo para o app usar a rota "/x" e direcionar o request para o arquivo user.routes.js
 app.use("/user", userRouter);
 app.use("/event", eventRouter);
@@ -33,6 +35,14 @@ app.use("/uploadImg", uploadImgRouter);
 uuidv4();
 
 // Função para fazer o servidor rodar na porta 4000. Essa função tem sempre de estar no fim do arquivo
-app.listen(process.env.PORT, () => {
-  console.log("Server up and running on port 4000");
-});
+//app.listen(process.env.PORT, () => {
+//  console.log("Server up and running on port 4000");
+//});
+
+if (!isVercel) {
+  app.listen(3000).on("listening", () => {
+    logger.info("server is listening on port http://localhost:3000");
+  });
+}
+
+export default app;

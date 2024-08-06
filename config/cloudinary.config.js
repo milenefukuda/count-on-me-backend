@@ -1,6 +1,5 @@
 import cloudinary from "cloudinary";
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
 import * as dotenv from "dotenv";
 
 // Faz a conexão com o banco de imagens
@@ -15,15 +14,6 @@ cloudinaryInst.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinaryInst,
-  params: {
-    folder: "pictures",
-    format: async (req, file) => "png",
-    use_filename: true,
-  },
-});
-
-const uploadImg = multer({ storage: storage });
+const uploadImg = multer();
 
 export { uploadImg };
